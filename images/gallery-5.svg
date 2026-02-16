@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <rect width="600" height="600" fill="#f3eff6"/>
+  <rect x="200" y="200" width="200" height="200" rx="20" fill="#c4a1d0" opacity="0.4"/>
+  <rect x="230" y="230" width="140" height="140" rx="14" fill="#dfc8e7" opacity="0.5"/>
+  <text x="300" y="520" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#9b9baf">Decor</text>
+</svg>

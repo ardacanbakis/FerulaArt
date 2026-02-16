@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <rect width="600" height="600" fill="#f8f4ee"/>
+  <circle cx="300" cy="260" r="80" fill="#f5d9a8" opacity="0.6"/>
+  <rect x="220" y="380" width="160" height="20" rx="10" fill="#f8e6c4"/>
+  <rect x="250" y="420" width="100" height="14" rx="7" fill="#faecd4"/>
+  <text x="300" y="520" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#9b9baf">Textile</text>
+</svg>

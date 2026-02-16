@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "gallery": "Galeri",
+    "testimonials": "Yorumlar",
+    "contact": "İletişim"
+  },
+  "hero": {
+    "subtitle": "El Yapımı Sanat & DIY",
+    "cta": "Galeriyi Keşfet",
+    "cta2": "Bize Ulaşın"
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "description": "Ferula Art olarak, her parçada ruh ve tutku var. El yapımı ürünlerimizle yaratıcılığın sınırlarını zorluyoruz. Her projemiz, sevgiyle ve özenle hazırlanmış benzersiz bir sanat eseridir.",
+    "stat1Label": "El Yapımı Proje",
+    "stat2Label": "Mutlu Müşteri",
+    "stat3Label": "Yıllık Deneyim"
+  },
+  "gallery": {
+    "title": "Galeri",
+    "subtitle": "El yapımı projelerimize göz atın",
+    "filterAll": "Tümü",
+    "filterDecor": "Dekorasyon",
+    "filterJewelry": "Takı",
+    "filterPaper": "Kağıt Sanatı",
+    "filterTextile": "Tekstil"
+  },
+  "testimonials": {
+    "title": "Müşteri Yorumları",
+    "subtitle": "Müşterilerimiz ne diyor?"
+  },
+  "contact": {
+    "title": "İletişim",
+    "subtitle": "Bizimle iletişime geçin",
+    "whatsapp": "WhatsApp ile Yazın",
+    "etsy": "Etsy Mağazamız",
+    "followUs": "Bizi Takip Edin"
+  },
+  "footer": {
+    "createdWith": "Sevgiyle yapıldı",
+    "by": "tarafından"
+  },
+  "theme": {
+    "light": "Açık Tema",
+    "dark": "Koyu Tema"
+  },
+  "testimonialItems": [
+    {
+      "text": "Ferula Art'ın el yapımı ürünleri gerçekten harika! Her parça benzersiz ve özel.",
+      "author": "Ayşe Y.",
+      "role": "Müşteri"
+    },
+    {
+      "text": "Hediye olarak aldığım ürünler herkesi çok mutlu etti. Kalite ve estetik bir arada.",
+      "author": "Mehmet K.",
+      "role": "Müşteri"
+    },
+    {
+      "text": "DIY workshop'larına katıldım, hem eğlenceli hem de öğretici. Kesinlikle tavsiye ederim!",
+      "author": "Zeynep A.",
+      "role": "Workshop Katılımcısı"
+    }
+  ]
+}

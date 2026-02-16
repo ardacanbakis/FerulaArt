@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "gallery": "Gallery",
+    "testimonials": "Reviews",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "Handmade Art & DIY Crafts",
+    "cta": "Explore Gallery",
+    "cta2": "Contact Us"
+  },
+  "about": {
+    "title": "About Us",
+    "description": "At Ferula Art, every piece carries soul and passion. We push the boundaries of creativity with our handmade products. Each project is a unique work of art, crafted with love and care.",
+    "stat1Label": "Handmade Projects",
+    "stat2Label": "Happy Customers",
+    "stat3Label": "Years of Experience"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Browse our handmade projects",
+    "filterAll": "All",
+    "filterDecor": "Decor",
+    "filterJewelry": "Jewelry",
+    "filterPaper": "Paper Art",
+    "filterTextile": "Textile"
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "What our customers say"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with us",
+    "whatsapp": "Message on WhatsApp",
+    "etsy": "Our Etsy Store",
+    "followUs": "Follow Us"
+  },
+  "footer": {
+    "createdWith": "Created with",
+    "by": "by"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  },
+  "testimonialItems": [
+    {
+      "text": "Ferula Art's handmade products are truly amazing! Each piece is unique and special.",
+      "author": "Ayse Y.",
+      "role": "Customer"
+    },
+    {
+      "text": "The gifts I purchased made everyone so happy. Quality and aesthetics combined.",
+      "author": "Mehmet K.",
+      "role": "Customer"
+    },
+    {
+      "text": "I attended the DIY workshops — both fun and educational. Highly recommend!",
+      "author": "Zeynep A.",
+      "role": "Workshop Participant"
+    }
+  ]
+}
