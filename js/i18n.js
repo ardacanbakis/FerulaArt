@@ -72,9 +72,14 @@ const I18n = (() => {
 
   function updateFooter(data) {
     const footerEl = document.querySelector('[data-i18n-html="footer.credit"]');
-    if (!footerEl || !data.footer) return;
+    if (!footerEl || !data.footer || !data.footer.credit) return;
     const year = new Date().getFullYear();
-    footerEl.innerHTML = `${data.footer.createdWith} <i class="fa-regular fa-heart fa-beat" style="color: #ff0000;"></i> ${data.footer.by} <a href="https://ardacanbakis.com/" target="_blank" rel="noopener noreferrer">Arda Canbak\u0131\u015f</a> &copy; ${year}`;
+    const heart = '<i class="fa-regular fa-heart fa-beat" style="color: #ff0000;"></i>';
+    const link = '<a href="https://ardacanbakis.com/" target="_blank" rel="noopener noreferrer">Arda Canbak\u0131\u015f</a>';
+    footerEl.innerHTML = data.footer.credit
+      .replace('{heart}', heart)
+      .replace('{link}', link)
+      .replace('{year}', year);
   }
 
   function renderTestimonials(items) {

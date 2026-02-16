@@ -39,8 +39,7 @@
     "followUs": "Follow Us"
   },
   "footer": {
-    "createdWith": "Created with",
-    "by": "by"
+    "credit": "Created with {heart}  by {link} © {year}"
   },
   "theme": {
     "light": "Light Mode",

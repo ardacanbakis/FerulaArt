@@ -66,14 +66,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ---- Hero Carousel ----
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.dot');
+  let slides, dots, currentSlide, carouselInterval;
   const prevBtn = document.querySelector('.carousel-prev');
   const nextBtn = document.querySelector('.carousel-next');
-  let currentSlide = 0;
-  let carouselInterval;
+
+  function initCarousel() {
+    slides = document.querySelectorAll('.carousel-slide');
+    dots = document.querySelectorAll('.dot');
+    currentSlide = 0;
+
+    if (carouselInterval) clearInterval(carouselInterval);
+
+    // Re-bind dot clicks
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goToSlide(parseInt(dot.dataset.slide));
+        resetAutoplay();
+      });
+    });
+
+    startAutoplay();
+  }
 
   function goToSlide(index) {
+    if (!slides.length) return;
     slides[currentSlide].classList.remove('active');
     dots[currentSlide].classList.remove('active');
     currentSlide = (index + slides.length) % slides.length;
@@ -100,12 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
   nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      goToSlide(parseInt(dot.dataset.slide));
-      resetAutoplay();
-    });
-  });
 
   // Touch/swipe support
   let touchStartX = 0;
@@ -119,29 +129,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
-  startAutoplay();
+  initCarousel();
 
-  // ---- Gallery Filter ----
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-item');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.dataset.filter;
-      galleryItems.forEach(item => {
-        const show = filter === 'all' || item.dataset.category === filter;
-        item.classList.toggle('hidden', !show);
-        if (show) {
-          item.style.animation = 'fadeUp 0.5s ease-out forwards';
-        }
-      });
-    });
+  // Listen for dynamic hero image reload from Firebase
+  window.addEventListener('heroImagesLoaded', () => {
+    initCarousel();
   });
 
-  // ---- Gallery Lightbox ----
+  // ---- Gallery ----
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.querySelector('.lightbox-close');
@@ -149,8 +144,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxNext = document.querySelector('.lightbox-next');
   let lightboxIndex = 0;
 
+  function getGalleryItems() {
+    return document.querySelectorAll('.gallery-item');
+  }
+
   function getVisibleItems() {
-    return Array.from(galleryItems).filter(item => !item.classList.contains('hidden'));
+    return Array.from(getGalleryItems()).filter(item => !item.classList.contains('hidden'));
+  }
+
+  function initGalleryFilter() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        getGalleryItems().forEach(item => {
+          const show = filter === 'all' || item.dataset.category === filter;
+          item.classList.toggle('hidden', !show);
+          if (show) {
+            item.style.animation = 'fadeUp 0.5s ease-out forwards';
+          }
+        });
+      });
+    });
+  }
+
+  function initGalleryLightbox() {
+    getGalleryItems().forEach(item => {
+      item.addEventListener('click', () => {
+        const items = getVisibleItems();
+        const index = items.indexOf(item);
+        if (index !== -1) openLightbox(index);
+      });
+    });
   }
 
   function openLightbox(index) {
@@ -167,14 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
   }
-
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const items = getVisibleItems();
-      const index = items.indexOf(item);
-      if (index !== -1) openLightbox(index);
-    });
-  });
 
   lightboxClose.addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', e => {
@@ -204,8 +224,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'ArrowRight') lightboxNext.click();
   });
 
+  initGalleryFilter();
+  initGalleryLightbox();
+
+  // Listen for dynamic gallery reload from Firebase
+  window.addEventListener('galleryImagesLoaded', () => {
+    initGalleryLightbox();
+  });
+
   // ---- Scroll Reveal Animation ----
-  const revealElements = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -218,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     rootMargin: '0px 0px -50px 0px'
   });
 
-  revealElements.forEach(el => revealObserver.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
   // ---- Counter Animation ----
   const statNumbers = document.querySelectorAll('.stat-number');
@@ -261,5 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
   scrollTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  // ---- Load Firebase Content ----
+  if (typeof FirebaseLoader !== 'undefined') {
+    FirebaseLoader.init();
+  }
 
 });

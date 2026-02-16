@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferula Art — Admin Panel</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">Ferula Art</div>
+      <p class="login-subtitle">Admin Panel</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="admin@ferulaart.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
+        </div>
+        <p class="login-error" id="loginError"></p>
+        <button type="submit" class="btn-login" id="loginBtn">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div class="admin-panel" id="adminPanel">
+
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <span class="admin-title">Ferula Art</span>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <button class="btn-logout" id="logoutBtn">Sign Out</button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+
+      <!-- How it works -->
+      <section class="admin-section admin-info-box">
+        <h2 class="admin-section-title">How to add images</h2>
+        <ol class="info-steps">
+          <li>Upload your image to a free host like <a href="https://imgur.com/" target="_blank">Imgur</a>, <a href="https://postimages.org/" target="_blank">PostImages</a>, or your GitHub repo</li>
+          <li>Copy the <strong>direct image URL</strong> (should end in .jpg, .png, .webp or be a direct link)</li>
+          <li>Paste it below and click <strong>Add</strong></li>
+        </ol>
+      </section>
+
+      <!-- Hero Images Section -->
+      <section class="admin-section" id="heroSection">
+        <div class="admin-section-header">
+          <div>
+            <h2 class="admin-section-title">Hero Carousel Images</h2>
+            <p class="admin-section-subtitle">Recommended: 1920 x 1080px (16:9 ratio)</p>
+          </div>
+        </div>
+
+        <div class="url-input-area">
+          <div class="url-input-row">
+            <input type="url" id="heroUrlInput" class="url-input" placeholder="https://i.imgur.com/example.jpg" autocomplete="off">
+            <button class="btn-add" id="heroAddBtn">Add</button>
+          </div>
+          <div class="url-preview" id="heroPreview"></div>
+        </div>
+
+        <div class="image-grid" id="heroImageGrid">
+          <!-- Hero images loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- Gallery Images Section -->
+      <section class="admin-section" id="gallerySection">
+        <div class="admin-section-header">
+          <div>
+            <h2 class="admin-section-title">Gallery Images</h2>
+            <p class="admin-section-subtitle">Recommended: 800 x 800px (1:1 square ratio)</p>
+          </div>
+        </div>
+
+        <div class="url-input-area">
+          <div class="category-select-wrapper">
+            <label for="galleryCategory">Category:</label>
+            <select class="category-select" id="galleryCategory">
+              <option value="decor">Decor</option>
+              <option value="jewelry">Jewelry</option>
+              <option value="paper">Paper Art</option>
+              <option value="textile">Textile</option>
+            </select>
+          </div>
+          <div class="url-input-row">
+            <input type="url" id="galleryUrlInput" class="url-input" placeholder="https://i.imgur.com/example.jpg" autocomplete="off">
+            <button class="btn-add" id="galleryAddBtn">Add</button>
+          </div>
+          <div class="url-preview" id="galleryPreview"></div>
+        </div>
+
+        <div class="image-grid" id="galleryImageGrid">
+          <!-- Gallery images loaded dynamically -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Firebase SDK (Auth + Firestore only, no Storage) -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

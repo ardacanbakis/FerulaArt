@@ -39,8 +39,7 @@
     "followUs": "Bizi Takip Edin"
   },
   "footer": {
-    "createdWith": "Sevgiyle yapıldı",
-    "by": "tarafından"
+    "credit": "Created with {heart}  by {link} © {year}"
   },
   "theme": {
     "light": "Açık Tema",
