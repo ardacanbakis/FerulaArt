@@ -2,23 +2,44 @@
   "nav": {
     "home": "Home",
     "about": "About",
+    "showcase": "Works",
     "gallery": "Gallery",
     "testimonials": "Reviews",
     "contact": "Contact"
   },
   "hero": {
     "subtitle": "Handmade Art & DIY Crafts",
+    "description": "A story in every piece, a passion in every texture. Add color to your life with our handmade artworks.",
     "cta": "Explore Gallery",
-    "cta2": "Contact Us"
+    "cta2": "Our Works"
   },
   "about": {
+    "eyebrow": "Our Story",
     "title": "About Us",
     "description": "At Ferula Art, every piece carries soul and passion. We push the boundaries of creativity with our handmade products. Each project is a unique work of art, crafted with love and care.",
+    "cta": "Get in Touch",
     "stat1Label": "Handmade Projects",
     "stat2Label": "Happy Customers",
-    "stat3Label": "Years of Experience"
+    "stat3Label": "Years of Experience",
+    "stat4Label": "100% Handmade"
+  },
+  "process": {
+    "eyebrow": "How We Work",
+    "title": "Our Process",
+    "step1Title": "Design",
+    "step1Desc": "Every piece begins with a unique concept. We listen to our customers' dreams and create original designs.",
+    "step2Title": "Handcraft",
+    "step2Desc": "Each piece is carefully handmade with chosen materials. Nothing is mass-produced.",
+    "step3Title": "Delivery",
+    "step3Desc": "We deliver your lovingly crafted pieces in special packaging right to your door."
+  },
+  "showcase": {
+    "eyebrow": "Featured Works",
+    "title": "Our Highlighted Pieces",
+    "subtitle": "Each one unique, each one handmade"
   },
   "gallery": {
+    "eyebrow": "Our Collection",
     "title": "Gallery",
     "subtitle": "Browse our handmade projects",
     "filterAll": "All",
@@ -28,22 +49,17 @@
     "filterTextile": "Textile"
   },
   "testimonials": {
+    "eyebrow": "Our Customers",
     "title": "Testimonials",
     "subtitle": "What our customers say"
   },
   "contact": {
+    "eyebrow": "Let's Talk",
     "title": "Contact",
-    "subtitle": "Get in touch with us",
+    "subtitle": "For orders, custom designs, or just to say hello — reach out to us!",
     "whatsapp": "Message on WhatsApp",
     "etsy": "Our Etsy Store",
     "followUs": "Follow Us"
-  },
-  "footer": {
-    "credit": "Created with {heart}  by {link} © {year}"
-  },
-  "theme": {
-    "light": "Light Mode",
-    "dark": "Dark Mode"
   },
   "testimonialItems": [
     {

@@ -2,23 +2,44 @@
   "nav": {
     "home": "Ana Sayfa",
     "about": "Hakkımızda",
+    "showcase": "Eserler",
     "gallery": "Galeri",
     "testimonials": "Yorumlar",
     "contact": "İletişim"
   },
   "hero": {
     "subtitle": "El Yapımı Sanat & DIY",
+    "description": "Her parçada bir hikâye, her dokuda bir tutku. El yapımı sanat eserlerimizle hayatınıza renk katın.",
     "cta": "Galeriyi Keşfet",
-    "cta2": "Bize Ulaşın"
+    "cta2": "Eserlerimiz"
   },
   "about": {
+    "eyebrow": "Bizim Hikayemiz",
     "title": "Hakkımızda",
     "description": "Ferula Art olarak, her parçada ruh ve tutku var. El yapımı ürünlerimizle yaratıcılığın sınırlarını zorluyoruz. Her projemiz, sevgiyle ve özenle hazırlanmış benzersiz bir sanat eseridir.",
+    "cta": "Bize Ulaşın",
     "stat1Label": "El Yapımı Proje",
     "stat2Label": "Mutlu Müşteri",
-    "stat3Label": "Yıllık Deneyim"
+    "stat3Label": "Yıllık Deneyim",
+    "stat4Label": "%100 El Yapımı"
+  },
+  "process": {
+    "eyebrow": "Nasıl Çalışıyoruz",
+    "title": "Sürecimiz",
+    "step1Title": "Tasarım",
+    "step1Desc": "Her eser benzersiz bir konseptle başlar. Müşterilerimizin hayallerini dinleyip özgün tasarımlar oluştururuz.",
+    "step2Title": "El İşçiliği",
+    "step2Desc": "Seçilen malzemelerle her parça özenle el yapımı olarak üretilir. Hiçbir şey seri üretim değil.",
+    "step3Title": "Teslimat",
+    "step3Desc": "Özel paketlerde, sevgiyle hazırlanmış eserleri kapınıza kadar ulaştırıyoruz."
+  },
+  "showcase": {
+    "eyebrow": "Seçme Eserler",
+    "title": "Öne Çıkan Eserlerimiz",
+    "subtitle": "Her biri özgün, her biri el yapımı"
   },
   "gallery": {
+    "eyebrow": "Koleksiyonumuz",
     "title": "Galeri",
     "subtitle": "El yapımı projelerimize göz atın",
     "filterAll": "Tümü",
@@ -28,22 +49,17 @@
     "filterTextile": "Tekstil"
   },
   "testimonials": {
+    "eyebrow": "Müşterilerimiz",
     "title": "Müşteri Yorumları",
     "subtitle": "Müşterilerimiz ne diyor?"
   },
   "contact": {
+    "eyebrow": "Hadi Konuşalım",
     "title": "İletişim",
-    "subtitle": "Bizimle iletişime geçin",
+    "subtitle": "Sipariş, özel tasarım ya da sadece merhaba demek için bize ulaşın!",
     "whatsapp": "WhatsApp ile Yazın",
     "etsy": "Etsy Mağazamız",
     "followUs": "Bizi Takip Edin"
-  },
-  "footer": {
-    "credit": "Created with {heart}  by {link} © {year}"
-  },
-  "theme": {
-    "light": "Açık Tema",
-    "dark": "Koyu Tema"
   },
   "testimonialItems": [
     {

@@ -1,106 +1,92 @@
 /**
  * Ferula Art — Firebase Content Loader
- * Loads hero carousel and gallery images dynamically from Firestore (URLs only, no Storage).
- * Falls back to static placeholder images if Firebase is not configured or fails.
+ * Loads gallery images and showcase items from Firestore.
  */
 const FirebaseLoader = (() => {
 
   function isConfigured() {
     try {
-      return firebase.apps.length > 0 &&
-        !firebase.app().options.apiKey.startsWith('YOUR_');
-    } catch {
-      return false;
-    }
+      return firebase.apps.length > 0 && !firebase.app().options.apiKey.startsWith('YOUR_');
+    } catch { return false; }
   }
 
-  // --- Hero Carousel ---
-  async function loadHeroImages() {
-    if (!isConfigured()) return;
-
-    try {
-      const snapshot = await db.collection('heroImages').orderBy('order').get();
-      if (snapshot.empty) return; // Keep static placeholders
-
-      const images = snapshot.docs.map(doc => doc.data());
-      const track = document.querySelector('.carousel-track');
-      const dotsContainer = document.querySelector('.carousel-dots');
-
-      if (!track || !dotsContainer) return;
-
-      // Build new slides
-      track.innerHTML = images.map((img, i) => `
-        <div class="carousel-slide${i === 0 ? ' active' : ''}">
-          <div class="slide-bg" style="background-image: url('${img.url}')"></div>
-          <div class="slide-content">
-            <h1 class="hero-title">Ferula Art</h1>
-            <p class="hero-subtitle" data-i18n="hero.subtitle">El Yapımı Sanat & DIY</p>
-            <div class="hero-cta">
-              <a href="#gallery" class="btn btn-primary" data-i18n="hero.cta">Galeriyi Keşfet</a>
-              <a href="#contact" class="btn btn-outline" data-i18n="hero.cta2">Bize Ulaşın</a>
-            </div>
-          </div>
-        </div>
-      `).join('');
-
-      // Build new dots
-      dotsContainer.innerHTML = images.map((_, i) => `
-        <button class="dot${i === 0 ? ' active' : ''}" data-slide="${i}"></button>
-      `).join('');
-
-      // Re-apply current language translations to new elements
-      I18n.setLanguage(I18n.getCurrentLang());
-
-      // Reinitialize the carousel with new slides
-      window.dispatchEvent(new CustomEvent('heroImagesLoaded'));
-
-    } catch (err) {
-      console.warn('FirebaseLoader: Could not load hero images, using static fallback.', err);
-    }
-  }
-
-  // --- Gallery ---
+  // ─── Gallery ──────────────────────────────────────────────────────
   async function loadGalleryImages() {
     if (!isConfigured()) return;
-
     try {
-      const snapshot = await db.collection('galleryImages').orderBy('order').get();
-      if (snapshot.empty) return; // Keep static placeholders
+      const snap = await db.collection('galleryImages').orderBy('order').get();
+      if (snap.empty) return;
 
-      const images = snapshot.docs.map(doc => doc.data());
       const grid = document.getElementById('galleryGrid');
-
       if (!grid) return;
 
-      grid.innerHTML = images.map(img => `
-        <div class="gallery-item reveal visible" data-category="${img.category}">
-          <div class="gallery-img">
-            <img src="${img.url}" alt="${img.category}" loading="lazy">
-            <div class="gallery-overlay">
-              <span class="gallery-zoom">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-              </span>
-            </div>
-          </div>
-        </div>
-      `).join('');
+      grid.innerHTML = snap.docs.map(doc => {
+        const d = doc.data();
+        return `
+          <div class="gallery-item" data-category="${d.category}" tabindex="0" role="listitem">
+            <img src="${d.url}" alt="${d.category}" loading="lazy" />
+            <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            <span class="gallery-cat-badge">${d.category}</span>
+          </div>`;
+      }).join('');
 
-      // Reinitialize gallery interactions
-      window.dispatchEvent(new CustomEvent('galleryImagesLoaded'));
-
+      window.initGallery?.();
     } catch (err) {
-      console.warn('FirebaseLoader: Could not load gallery images, using static fallback.', err);
+      console.warn('FirebaseLoader: gallery load failed', err);
+    }
+  }
+
+  // ─── Showcase Items ───────────────────────────────────────────────
+  async function loadShowcaseItems() {
+    if (!isConfigured()) return;
+    try {
+      const snap = await db.collection('showcaseItems')
+        .where('active', '==', true)
+        .orderBy('order')
+        .get();
+
+      const grid = document.getElementById('showcaseGrid');
+      if (!grid) return;
+      if (snap.empty) {
+        grid.innerHTML = '<p class="showcase-empty">Yakında yeni eserler eklenecek...</p>';
+        return;
+      }
+
+      grid.innerHTML = snap.docs.map(doc => {
+        const d = doc.data();
+        return `
+          <div class="showcase-card">
+            <div class="showcase-card-img">
+              <img src="${d.image || ''}" alt="${d.title}" loading="lazy"
+                   onerror="this.parentElement.style.background='var(--bg-surface)';this.style.display='none'" />
+            </div>
+            <div class="showcase-card-body">
+              <span class="showcase-card-cat">${d.category || ''}</span>
+              <h3 class="showcase-card-title">${d.title || ''}</h3>
+              <p class="showcase-card-desc">${d.description || ''}</p>
+              <div class="showcase-card-footer">
+                <span class="showcase-card-price">${d.price || ''}</span>
+                ${d.link ? `<a href="${d.link}" target="_blank" rel="noopener" class="showcase-card-btn">Görüntüle →</a>` : ''}
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    } catch (err) {
+      console.warn('FirebaseLoader: showcase load failed', err);
     }
   }
 
   async function init() {
-    if (!isConfigured()) {
-      console.info('FirebaseLoader: Firebase not configured, using static images.');
-      return;
-    }
-    // Load both in parallel
-    await Promise.all([loadHeroImages(), loadGalleryImages()]);
+    if (!isConfigured()) return;
+    await Promise.all([loadGalleryImages(), loadShowcaseItems()]);
   }
 
-  return { init, loadHeroImages, loadGalleryImages };
+  return { init, loadGalleryImages, loadShowcaseItems };
 })();
+
+// Auto-init when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => FirebaseLoader.init());
+} else {
+  FirebaseLoader.init();
+}
