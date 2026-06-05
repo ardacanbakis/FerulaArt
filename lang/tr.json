@@ -36,7 +36,11 @@
   "showcase": {
     "eyebrow": "Seçme Eserler",
     "title": "Öne Çıkan Eserlerimiz",
-    "subtitle": "Her biri özgün, her biri el yapımı"
+    "subtitle": "Her biri özgün, her biri el yapımı",
+    "modal": {
+      "order": "WhatsApp'ta Sipariş Ver",
+      "etsy": "Etsy'de Gör"
+    }
   },
   "gallery": {
     "eyebrow": "Koleksiyonumuz",
@@ -59,7 +63,15 @@
     "subtitle": "Sipariş, özel tasarım ya da sadece merhaba demek için bize ulaşın!",
     "whatsapp": "WhatsApp ile Yazın",
     "etsy": "Etsy Mağazamız",
-    "followUs": "Bizi Takip Edin"
+    "followUs": "Bizi Takip Edin",
+    "quickTitle": "Hızlı Ulaşın",
+    "formTitle": "Mesaj Gönderin",
+    "form": {
+      "name": "Adınız",
+      "email": "E-posta Adresiniz",
+      "message": "Mesajınız",
+      "send": "Gönder"
+    }
   },
   "testimonialItems": [
     {

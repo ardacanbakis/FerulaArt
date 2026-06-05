@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,6 +40,11 @@
       </button>
       <button class="nav-item" data-section="categories">
         <i class="fa-solid fa-tags"></i><span>Kategoriler</span>
+      </button>
+      <button class="nav-item" data-section="messages">
+        <i class="fa-solid fa-envelope"></i>
+        <span>Mesajlar</span>
+        <span class="unread-badge" id="unreadBadge" style="display:none">0</span>
       </button>
     </nav>
 
@@ -96,6 +101,10 @@
           <div class="stat-tile-icon tan"><i class="fa-solid fa-tags"></i></div>
           <div><p class="stat-tile-num" id="statCats">—</p><p class="stat-tile-label">Kategori</p></div>
         </div>
+        <div class="stat-tile">
+          <div class="stat-tile-icon rose"><i class="fa-solid fa-envelope"></i></div>
+          <div><p class="stat-tile-num" id="statMessages">—</p><p class="stat-tile-label">Mesaj</p></div>
+        </div>
       </div>
 
       <div class="overview-grid">
@@ -109,10 +118,11 @@
         <div class="dash-card tips-card">
           <div class="dash-card-header"><h2>Hızlı İpuçları</h2></div>
           <ul class="tips-list">
-            <li><i class="fa-solid fa-circle-info"></i> Görselleri Imgur, Cloudinary veya GitHub'da barındırın.</li>
+            <li><i class="fa-solid fa-circle-info"></i> Görseller Firebase Storage'a yüklenir — güvenli ve hızlı.</li>
             <li><i class="fa-solid fa-circle-info"></i> Galeri görselleri için 1:1 (kare) oran önerilir.</li>
             <li><i class="fa-solid fa-circle-info"></i> Hero görselleri için 16:9 oran kullanın.</li>
             <li><i class="fa-solid fa-circle-info"></i> Öne çıkan eserler siteye otomatik yansır.</li>
+            <li><i class="fa-solid fa-circle-info"></i> Kartları sürükleyerek sırasını değiştirebilirsiniz.</li>
           </ul>
         </div>
       </div>
@@ -156,13 +166,35 @@
             <label>Etsy / Dış Link</label>
             <input type="url" id="scLink" placeholder="https://etsy.com/..." />
           </div>
+
+          <!-- Primary image -->
           <div class="fg fg-full">
-            <label>Görsel URL *</label>
-            <div class="url-row">
+            <label>Ana Görsel *</label>
+            <div class="upload-zone" id="scUploadZone" data-collection="showcase">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <p>Sürükle &amp; Bırak veya <span>Dosya Seç</span></p>
+              <p class="upload-zone-hint">PNG, JPG, WEBP — maks. 5 MB</p>
+              <input type="file" accept="image/*" class="upload-zone-input" />
+              <div class="upload-progress" style="display:none">
+                <div class="upload-bar"></div>
+              </div>
+            </div>
+            <div class="url-row" style="margin-top:8px">
+              <span class="url-or">veya URL ile:</span>
               <input type="url" id="scImage" placeholder="https://i.imgur.com/..." />
               <div class="url-preview-thumb" id="scPreview"></div>
             </div>
           </div>
+
+          <!-- Extra images -->
+          <div class="fg fg-full">
+            <label>Ek Görseller <small>(isteğe bağlı, maks. 4)</small></label>
+            <div id="scExtraImages" class="extra-images-wrap"></div>
+            <button type="button" class="btn-add-img" id="scAddExtraImg">
+              <i class="fa-solid fa-plus"></i> Görsel Ekle
+            </button>
+          </div>
+
           <div class="fg">
             <label class="checkbox-label">
               <input type="checkbox" id="scActive" checked />
@@ -176,7 +208,7 @@
         </div>
       </div>
 
-      <div class="items-grid" id="showcaseGrid"></div>
+      <div class="items-grid sortable-grid" id="showcaseGrid"></div>
     </section>
 
     <!-- Gallery -->
@@ -197,8 +229,18 @@
             </select>
           </div>
           <div class="fg fg-full">
-            <label>Görsel URL</label>
-            <div class="url-row">
+            <label>Görsel</label>
+            <div class="upload-zone" id="galUploadZone" data-collection="gallery">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <p>Sürükle &amp; Bırak veya <span>Dosya Seç</span></p>
+              <p class="upload-zone-hint">PNG, JPG, WEBP — maks. 5 MB</p>
+              <input type="file" accept="image/*" class="upload-zone-input" />
+              <div class="upload-progress" style="display:none">
+                <div class="upload-bar"></div>
+              </div>
+            </div>
+            <div class="url-row" style="margin-top:8px">
+              <span class="url-or">veya URL ile:</span>
               <input type="url" id="galUrl" placeholder="https://i.imgur.com/..." />
               <div class="url-preview-thumb" id="galPreview"></div>
             </div>
@@ -215,7 +257,7 @@
         <button class="fdash-btn" data-f="paper">Kağıt Sanatı</button>
         <button class="fdash-btn" data-f="textile">Tekstil</button>
       </div>
-      <div class="img-grid" id="galGrid"></div>
+      <div class="img-grid sortable-grid" id="galGrid"></div>
     </section>
 
     <!-- Hero Carousel -->
@@ -225,8 +267,18 @@
         <h3>Görsel Ekle <small>(Öneri: 1920×1080, 16:9)</small></h3>
         <div class="form-grid">
           <div class="fg fg-full">
-            <label>Görsel URL</label>
-            <div class="url-row">
+            <label>Görsel</label>
+            <div class="upload-zone" id="heroUploadZone" data-collection="hero">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <p>Sürükle &amp; Bırak veya <span>Dosya Seç</span></p>
+              <p class="upload-zone-hint">PNG, JPG, WEBP — maks. 8 MB</p>
+              <input type="file" accept="image/*" class="upload-zone-input" />
+              <div class="upload-progress" style="display:none">
+                <div class="upload-bar"></div>
+              </div>
+            </div>
+            <div class="url-row" style="margin-top:8px">
+              <span class="url-or">veya URL ile:</span>
               <input type="url" id="heroUrl" placeholder="https://i.imgur.com/..." />
               <div class="url-preview-thumb" id="heroPreviewThumb"></div>
             </div>
@@ -236,7 +288,7 @@
           <button class="btn-save" id="heroAddBtn">Ekle</button>
         </div>
       </div>
-      <div class="img-grid" id="heroGrid"></div>
+      <div class="img-grid sortable-grid" id="heroGrid"></div>
     </section>
 
     <!-- Categories -->
@@ -287,7 +339,75 @@
       <div class="cats-list" id="catsList"></div>
     </section>
 
+    <!-- Messages -->
+    <section class="dash-section" id="sec-messages">
+      <div class="section-toolbar">
+        <h2>Mesajlar</h2>
+        <div class="msg-filter-row">
+          <button class="fdash-btn active" data-mf="all">Tümü</button>
+          <button class="fdash-btn" data-mf="unread">Okunmamış</button>
+        </div>
+      </div>
+      <div class="messages-list" id="messagesList"></div>
+    </section>
+
   </div><!-- /.dashboard-main -->
+
+  <!-- ═══ EDIT MODAL ═══ -->
+  <div class="edit-overlay" id="editOverlay" style="display:none" role="dialog" aria-modal="true" aria-label="Eser Düzenle">
+    <div class="edit-dialog">
+      <div class="edit-header">
+        <h3>Eser Düzenle</h3>
+        <button class="edit-close" id="editClose" aria-label="Kapat">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="edit-body">
+        <input type="hidden" id="editDocId" />
+        <div class="form-grid">
+          <div class="fg">
+            <label>Başlık *</label>
+            <input type="text" id="editTitle" />
+          </div>
+          <div class="fg">
+            <label>Kategori</label>
+            <select id="editCategory">
+              <option value="decor">Dekorasyon</option>
+              <option value="jewelry">Takı</option>
+              <option value="paper">Kağıt Sanatı</option>
+              <option value="textile">Tekstil</option>
+            </select>
+          </div>
+          <div class="fg fg-full">
+            <label>Açıklama</label>
+            <textarea id="editDesc" rows="3"></textarea>
+          </div>
+          <div class="fg">
+            <label>Fiyat</label>
+            <input type="text" id="editPrice" />
+          </div>
+          <div class="fg">
+            <label>Etsy / Dış Link</label>
+            <input type="url" id="editLink" />
+          </div>
+          <div class="fg fg-full">
+            <label>Görseller (her satıra bir URL)</label>
+            <textarea id="editImages" rows="4" placeholder="https://...&#10;https://..."></textarea>
+          </div>
+          <div class="fg">
+            <label class="checkbox-label">
+              <input type="checkbox" id="editActive" />
+              <span>Aktif (sitede görünür)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="edit-footer">
+        <button class="btn-cancel" id="editCancel">İptal</button>
+        <button class="btn-save"   id="editSave">Güncelle</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Confirm dialog -->
   <div class="confirm-overlay" id="confirmOverlay" style="display:none">
@@ -305,6 +425,9 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <!-- SortableJS -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
   <script src="js/firebase-config.js"></script>
   <script src="js/dashboard.js"></script>
 </body>

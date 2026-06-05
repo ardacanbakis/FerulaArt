@@ -1,6 +1,7 @@
 /**
  * Ferula Art — Firebase Content Loader
  * Loads gallery images and showcase items from Firestore.
+ * Showcase cards carry data attributes for the detail modal.
  */
 const FirebaseLoader = (() => {
 
@@ -8,6 +9,10 @@ const FirebaseLoader = (() => {
     try {
       return firebase.apps.length > 0 && !firebase.app().options.apiKey.startsWith('YOUR_');
     } catch { return false; }
+  }
+
+  function esc(str) {
+    return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
   // ─── Gallery ──────────────────────────────────────────────────────
@@ -47,6 +52,7 @@ const FirebaseLoader = (() => {
 
       const grid = document.getElementById('showcaseGrid');
       if (!grid) return;
+
       if (snap.empty) {
         grid.innerHTML = '<p class="showcase-empty">Yakında yeni eserler eklenecek...</p>';
         return;
@@ -54,11 +60,27 @@ const FirebaseLoader = (() => {
 
       grid.innerHTML = snap.docs.map(doc => {
         const d = doc.data();
+        // Build images array: use d.images[] if present, fall back to d.image
+        const imgs  = Array.isArray(d.images) && d.images.length ? d.images : (d.image ? [d.image] : []);
+        const thumb = imgs[0] || '';
+
         return `
-          <div class="showcase-card">
+          <div class="showcase-card"
+               tabindex="0" role="button"
+               aria-label="Detaylar: ${esc(d.title)}"
+               data-title="${esc(d.title || '')}"
+               data-desc="${esc(d.description || '')}"
+               data-price="${esc(d.price || '')}"
+               data-cat="${d.category || ''}"
+               data-link="${esc(d.link || '')}"
+               data-image="${esc(thumb)}"
+               data-images="${esc(JSON.stringify(imgs))}">
             <div class="showcase-card-img">
-              <img src="${d.image || ''}" alt="${d.title}" loading="lazy"
+              <img src="${thumb}" alt="${esc(d.title)}" loading="lazy"
                    onerror="this.parentElement.style.background='var(--bg-surface)';this.style.display='none'" />
+              <div class="showcase-hover-hint">
+                <i class="fa-solid fa-expand"></i>
+              </div>
             </div>
             <div class="showcase-card-body">
               <span class="showcase-card-cat">${d.category || ''}</span>
@@ -66,11 +88,13 @@ const FirebaseLoader = (() => {
               <p class="showcase-card-desc">${d.description || ''}</p>
               <div class="showcase-card-footer">
                 <span class="showcase-card-price">${d.price || ''}</span>
-                ${d.link ? `<a href="${d.link}" target="_blank" rel="noopener" class="showcase-card-btn">Görüntüle →</a>` : ''}
+                <span class="showcase-card-btn">Detaylar →</span>
               </div>
             </div>
           </div>`;
       }).join('');
+
+      window.initShowcase?.();
     } catch (err) {
       console.warn('FirebaseLoader: showcase load failed', err);
     }
@@ -84,7 +108,6 @@ const FirebaseLoader = (() => {
   return { init, loadGalleryImages, loadShowcaseItems };
 })();
 
-// Auto-init when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => FirebaseLoader.init());
 } else {

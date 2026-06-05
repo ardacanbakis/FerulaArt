@@ -36,7 +36,11 @@
   "showcase": {
     "eyebrow": "Featured Works",
     "title": "Our Highlighted Pieces",
-    "subtitle": "Each one unique, each one handmade"
+    "subtitle": "Each one unique, each one handmade",
+    "modal": {
+      "order": "Order via WhatsApp",
+      "etsy": "View on Etsy"
+    }
   },
   "gallery": {
     "eyebrow": "Our Collection",
@@ -59,7 +63,15 @@
     "subtitle": "For orders, custom designs, or just to say hello — reach out to us!",
     "whatsapp": "Message on WhatsApp",
     "etsy": "Our Etsy Store",
-    "followUs": "Follow Us"
+    "followUs": "Follow Us",
+    "quickTitle": "Quick Reach",
+    "formTitle": "Send a Message",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message",
+      "send": "Send"
+    }
   },
   "testimonialItems": [
     {

@@ -4,7 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ferula Art — El Yapımı Sanat &amp; DIY</title>
-  <meta name="description" content="Ferula Art — Özgün el yapımı sanat eserleri, takılar, dekorasyon ve DIY projeler." />
+  <meta name="description" content="Ferula Art — Özgün el yapımı sanat eserleri, takılar, dekorasyon ve DIY projeler. Sipariş ve özel tasarım için iletişime geçin." />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="icon" type="image/png"     href="images/favicon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Ferula Art" />
+  <meta property="og:title"       content="Ferula Art — El Yapımı Sanat &amp; DIY" />
+  <meta property="og:description" content="Özgün el yapımı sanat eserleri, takılar, dekorasyon ve DIY projeler." />
+  <meta property="og:image"       content="images/Ferula-Art-Banner -lowres.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Ferula Art — El Yapımı Sanat &amp; DIY" />
+  <meta name="twitter:description" content="Özgün el yapımı sanat eserleri, takılar, dekorasyon ve DIY projeler." />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Ferula Art",
+    "description": "El yapımı sanat eserleri, takılar, dekorasyon ve DIY projeler.",
+    "telephone": "+905469660256",
+    "sameAs": [
+      "https://www.instagram.com/ferula.art",
+      "https://www.pinterest.com/ferulaart",
+      "https://www.youtube.com/@FerulaAtelier",
+      "https://www.etsy.com/shop/FerulaArt"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+905469660256",
+      "contactType": "customer service",
+      "availableLanguage": ["Turkish", "English"]
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
@@ -12,6 +52,15 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+
+  <!-- ═══ PAGE LOADER ═══ -->
+  <div id="pageLoader" class="page-loader" aria-hidden="true">
+    <div class="loader-inner">
+      <span class="loader-diamond">✦</span>
+      <span class="loader-name">Ferula Art</span>
+    </div>
+    <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+  </div>
 
   <!-- ═══ NAVBAR ═══ -->
   <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
@@ -72,8 +121,8 @@
       </p>
 
       <div class="hero-ctas reveal-up delay-5">
-        <a href="#gallery"  class="btn btn-primary"  data-i18n="hero.cta">Galeriyi Keşfet</a>
-        <a href="#showcase" class="btn btn-ghost"    data-i18n="hero.cta2">Eserlerimiz</a>
+        <a href="#gallery"  class="btn btn-primary magnetic" data-i18n="hero.cta">Galeriyi Keşfet</a>
+        <a href="#showcase" class="btn btn-ghost  magnetic" data-i18n="hero.cta2">Eserlerimiz</a>
       </div>
     </div>
 
@@ -100,7 +149,7 @@
           <p class="body-text" data-i18n="about.description">
             Ferula Art olarak, her parçada ruh ve tutku var. El yapımı ürünlerimizle yaratıcılığın sınırlarını zorluyoruz. Her projemiz, sevgiyle ve özenle hazırlanmış benzersiz bir sanat eseridir.
           </p>
-          <a href="#contact" class="btn btn-primary-sm" data-i18n="about.cta">Bize Ulaşın</a>
+          <a href="#contact" class="btn btn-primary-sm magnetic" data-i18n="about.cta">Bize Ulaşın</a>
         </div>
 
         <div class="stats-grid reveal-right">
@@ -220,12 +269,16 @@
   <!-- ═══ CONTACT ═══ -->
   <section id="contact" class="section contact-section">
     <div class="container">
-      <div class="contact-grid">
-        <div class="contact-left reveal-left">
-          <span class="eyebrow" data-i18n="contact.eyebrow">Hadi Konuşalım</span>
-          <h2 class="section-title" data-i18n="contact.title">İletişim</h2>
-          <p class="body-text" data-i18n="contact.subtitle">Sipariş, özel tasarım ya da sadece merhaba demek için bize ulaşın!</p>
+      <div class="section-header reveal-up">
+        <span class="eyebrow" data-i18n="contact.eyebrow">Hadi Konuşalım</span>
+        <h2 class="section-title" data-i18n="contact.title">İletişim</h2>
+        <p class="section-sub" data-i18n="contact.subtitle">Sipariş, özel tasarım ya da sadece merhaba demek için bize ulaşın!</p>
+      </div>
 
+      <div class="contact-cols">
+        <!-- Quick contact -->
+        <div class="contact-quick reveal-left">
+          <h3 class="contact-col-title" data-i18n="contact.quickTitle">Hızlı İletişim</h3>
           <div class="contact-btns">
             <a href="https://wa.me/905469660256" target="_blank" rel="noopener" class="btn btn-whatsapp" id="whatsappBtn">
               <i class="fa-brands fa-whatsapp"></i>
@@ -236,24 +289,53 @@
               <span data-i18n="contact.etsy">Etsy Mağazamız</span>
             </a>
           </div>
+
+          <div class="social-block">
+            <p class="social-heading" data-i18n="contact.followUs">Bizi Takip Edin</p>
+            <div class="social-grid">
+              <a href="https://www.instagram.com/ferula.art" target="_blank" rel="noopener" class="social-card" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i><span>Instagram</span>
+              </a>
+              <a href="https://www.pinterest.com/ferulaart" target="_blank" rel="noopener" class="social-card" aria-label="Pinterest">
+                <i class="fa-brands fa-pinterest"></i><span>Pinterest</span>
+              </a>
+              <a href="https://www.youtube.com/@FerulaAtelier" target="_blank" rel="noopener" class="social-card" aria-label="YouTube">
+                <i class="fa-brands fa-youtube"></i><span>YouTube</span>
+              </a>
+              <a href="https://www.etsy.com/shop/FerulaArt" target="_blank" rel="noopener" class="social-card" aria-label="Etsy">
+                <i class="fa-brands fa-etsy"></i><span>Etsy</span>
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div class="contact-right reveal-right">
-          <p class="social-heading" data-i18n="contact.followUs">Bizi Takip Edin</p>
-          <div class="social-grid">
-            <a href="https://www.instagram.com/ferula.art" target="_blank" rel="noopener" class="social-card">
-              <i class="fa-brands fa-instagram"></i><span>Instagram</span>
-            </a>
-            <a href="https://www.pinterest.com/ferulaart" target="_blank" rel="noopener" class="social-card">
-              <i class="fa-brands fa-pinterest"></i><span>Pinterest</span>
-            </a>
-            <a href="https://www.youtube.com/@FerulaAtelier" target="_blank" rel="noopener" class="social-card">
-              <i class="fa-brands fa-youtube"></i><span>YouTube</span>
-            </a>
-            <a href="https://www.etsy.com/shop/FerulaArt" target="_blank" rel="noopener" class="social-card">
-              <i class="fa-brands fa-etsy"></i><span>Etsy</span>
-            </a>
-          </div>
+        <!-- Contact form -->
+        <div class="contact-form-panel reveal-right">
+          <h3 class="contact-col-title" data-i18n="contact.formTitle">Mesaj Gönderin</h3>
+          <form id="contactForm" novalidate>
+            <div class="cf-row">
+              <div class="cf-field">
+                <label for="cfName" data-i18n="contact.form.name">Adınız</label>
+                <input type="text" id="cfName" placeholder="Adınız Soyadınız" required autocomplete="name" />
+              </div>
+              <div class="cf-field">
+                <label for="cfEmail" data-i18n="contact.form.email">E-posta</label>
+                <input type="email" id="cfEmail" placeholder="email@ornek.com" required autocomplete="email" />
+              </div>
+            </div>
+            <div class="cf-field">
+              <label for="cfMessage" data-i18n="contact.form.message">Mesajınız</label>
+              <textarea id="cfMessage" rows="5" placeholder="Merhaba! El yapımı ürünlerinizle ilgileniyorum..." required></textarea>
+            </div>
+            <div class="cf-footer">
+              <button type="submit" class="btn btn-primary cf-submit" id="cfSubmit">
+                <span class="cf-label" data-i18n="contact.form.send">Mesaj Gönder</span>
+                <span class="cf-spinner" aria-hidden="true"></span>
+              </button>
+            </div>
+            <p class="cf-feedback cf-success" id="cfSuccess" role="status" aria-live="polite"></p>
+            <p class="cf-feedback cf-error"   id="cfErrorMsg" role="alert"  aria-live="polite"></p>
+          </form>
         </div>
       </div>
     </div>
@@ -287,6 +369,41 @@
       <img id="lbImg" src="" alt="Galeri görseli" />
     </div>
   </div>
+
+  <!-- ═══ SHOWCASE DETAIL MODAL ═══ -->
+  <div id="scModal" class="sc-modal" role="dialog" aria-modal="true" aria-labelledby="scModalTitle" hidden>
+    <div class="sc-backdrop" id="scBackdrop"></div>
+    <div class="sc-modal-box">
+      <button class="sc-close" id="scClose" aria-label="Kapat">&times;</button>
+      <div class="sc-gallery-col">
+        <div class="sc-main-img-wrap">
+          <img id="scMainImg" src="" alt="" />
+          <button class="sc-img-nav sc-img-prev" id="scImgPrev" aria-label="Önceki görsel">&#8249;</button>
+          <button class="sc-img-nav sc-img-next" id="scImgNext" aria-label="Sonraki görsel">&#8250;</button>
+        </div>
+        <div class="sc-thumbs" id="scThumbs"></div>
+      </div>
+      <div class="sc-info-col">
+        <span class="sc-modal-cat" id="scModalCat"></span>
+        <h2 class="sc-modal-title" id="scModalTitle"></h2>
+        <p class="sc-modal-desc" id="scModalDesc"></p>
+        <p class="sc-modal-price" id="scModalPrice"></p>
+        <div class="sc-modal-actions">
+          <a href="#" id="scModalWA" class="btn btn-whatsapp" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i><span data-i18n="showcase.modal.order">WhatsApp ile Sipariş</span>
+          </a>
+          <a href="#" id="scModalEtsy" class="btn btn-etsy" target="_blank" rel="noopener" style="display:none">
+            <i class="fa-brands fa-etsy"></i><span data-i18n="showcase.modal.etsy">Etsy'de Gör</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SCROLL TO TOP ═══ -->
+  <button id="scrollTop" class="scroll-top" aria-label="Yukarı çık">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
